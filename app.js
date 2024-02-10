@@ -3,7 +3,9 @@
 /* eslint-disable-next-line */
 const uri = window.location.search.substring(1)
 const params = new URLSearchParams(uri)
-const appStartDelay = parseFloat(params.get('appStartDelay') || '0')
+const appStartDelay = parseFloat(
+  params.get('appStartDelay') || '0',
+)
 
 function appStart() {
   Vue.use(Vuex)
@@ -81,9 +83,7 @@ function appStart() {
           .get('/todos')
           .then((r) => r.data)
           .then((todos) => {
-            setTimeout(() => {
-              commit('SET_TODOS', todos)
-            }, state.renderDelay)
+            commit('SET_TODOS', todos)
           })
           .catch((e) => {
             console.error('could not load todos')
@@ -116,16 +116,10 @@ function appStart() {
           completed: false,
           id: randomId(),
         }
-        // artificial delay in the application
-        // for test "flaky test - can pass or not depending on the app's speed"
-        // in cypress/integration/08-retry-ability/answer.js
-        // increase the timeout delay to make the test fail
-        // 50ms should be good
-        setTimeout(() => {
-          axios.post('/todos', todo).then(() => {
-            commit('ADD_TODO', todo)
-          })
-        }, addTodoDelay)
+
+        axios.post('/todos', todo).then(() => {
+          commit('ADD_TODO', todo)
+        })
       },
       addEntireTodo({ commit }, todoFields) {
         const todo = {
@@ -138,13 +132,21 @@ function appStart() {
       },
       removeTodo({ commit }, todo) {
         axios.delete(`/todos/${todo.id}`).then(() => {
-          console.log('removed todo', todo.id, 'from the server')
+          console.log(
+            'removed todo',
+            todo.id,
+            'from the server',
+          )
           commit('REMOVE_TODO', todo)
         })
       },
       async removeCompleted({ commit, state }) {
-        const remainingTodos = state.todos.filter((todo) => !todo.completed)
-        const completedTodos = state.todos.filter((todo) => todo.completed)
+        const remainingTodos = state.todos.filter(
+          (todo) => !todo.completed,
+        )
+        const completedTodos = state.todos.filter(
+          (todo) => todo.completed,
+        )
 
         for (const todo of completedTodos) {
           await axios.delete(`/todos/${todo.id}`)
@@ -155,7 +157,10 @@ function appStart() {
         commit('CLEAR_NEW_TODO')
       },
       // example promise-returning action
-      addTodoAfterDelay({ commit }, { milliseconds, title }) {
+      addTodoAfterDelay(
+        { commit },
+        { milliseconds, title },
+      ) {
         return new Promise((resolve) => {
           setTimeout(() => {
             const todo = {
@@ -199,14 +204,22 @@ function appStart() {
 
     created() {
       const delay = parseFloat(params.get('delay') || '0')
-      const renderDelay = parseFloat(params.get('renderDelay') || '0')
-      addTodoDelay = parseFloat(params.get('addTodoDelay') || '1000')
+      const renderDelay = parseFloat(
+        params.get('renderDelay') || '0',
+      )
+      addTodoDelay = parseFloat(
+        params.get('addTodoDelay') || '1000',
+      )
 
-      this.$store.dispatch('setRenderDelay', renderDelay).then(() => {
-        this.$store.dispatch('setDelay', delay).then(() => {
-          this.$store.dispatch('loadTodos')
+      this.$store
+        .dispatch('setRenderDelay', renderDelay)
+        .then(() => {
+          this.$store
+            .dispatch('setDelay', delay)
+            .then(() => {
+              this.$store.dispatch('loadTodos')
+            })
         })
-      })
 
       // how would you test the periodic loading of todos?
       setInterval(() => {
@@ -227,11 +240,14 @@ function appStart() {
         return this.$store.getters.todos
       },
       filteredTodos() {
-        return filters[this.visibility](this.$store.getters.todos)
+        return filters[this.visibility](
+          this.$store.getters.todos,
+        )
       },
       remaining() {
-        return this.$store.getters.todos.filter((todo) => !todo.completed)
-          .length
+        return this.$store.getters.todos.filter(
+          (todo) => !todo.completed,
+        ).length
       },
     },
 
@@ -262,7 +278,10 @@ function appStart() {
 
       // utility method for create a todo with title and completed state
       addEntireTodo(title, completed = false) {
-        this.$store.dispatch('addEntireTodo', { title, completed })
+        this.$store.dispatch('addEntireTodo', {
+          title,
+          completed,
+        })
       },
 
       removeCompleted() {
@@ -277,11 +296,13 @@ function appStart() {
 
     var router = new Router()
 
-    ;['all', 'active', 'completed'].forEach(function (visibility) {
-      router.on(visibility, function () {
-        app.visibility = visibility
-      })
-    })
+    ;['all', 'active', 'completed'].forEach(
+      function (visibility) {
+        router.on(visibility, function () {
+          app.visibility = visibility
+        })
+      },
+    )
 
     router.configure({
       notfound: function () {
