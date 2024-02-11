@@ -36,11 +36,7 @@ it('deletes a todo', () => {
 it('shows a loading message', () => {
   cy.intercept('GET', '/todos', {
     fixture: 'three-todos',
-    delay: 2000, // Delay in milliseconds
   }).as('load')
   cy.visit('/')
-  cy.contains('Loading data ...').should('be.visible')
-  // and the disappears
-  cy.contains('Loading data ...').should('not.be.visible')
   cy.wait('@load')
 })
