@@ -21,12 +21,26 @@ it('deletes a todo', () => {
   }).as('load')
   cy.visit('/')
   cy.wait('@load')
-  // intercept the "DELETE /todos/1" call
-  cy.intercept('DELETE', '/todos/1', {}).as('delete')
+  // intercept the "DELETE /todos/1" call with a delay of 2000 milliseconds (2 seconds)
+  cy.intercept('DELETE', '/todos/1', {
+    delay: 2000,
+  }).as('delete')
   // delete the first todo
   cy.get('.todo-list li')
     .first()
     .find('.destroy')
     .click({ force: true })
   cy.wait('@delete')
+})
+
+it('shows a loading message', () => {
+  cy.intercept('GET', '/todos', {
+    fixture: 'three-todos',
+    delay: 2000, // Delay in milliseconds
+  }).as('load')
+  cy.visit('/')
+  cy.contains('Loading data ...').should('be.visible')
+  // and the disappears
+  cy.contains('Loading data ...').should('not.be.visible')
+  cy.wait('@load')
 })
