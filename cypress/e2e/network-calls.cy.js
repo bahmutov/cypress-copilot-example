@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+// @ts-check
 
 it('loads todos', () => {
   // spy on the "GET /todos" call
