@@ -6,14 +6,13 @@ beforeEach(() => {
 })
 
 it('adds a new todo', () => {
-  // visit the page
   cy.visit('/')
-  // wait for the element with class "loaded"
+
+  cy.log('**wait for the page to load**')
   cy.get('body').should('have.class', 'loaded')
-  // type a new todo
+
+  cy.log('**confirm a single todo by adding**')
   cy.get('.new-todo').type('learn testing{enter}')
-  // there should be 1 todo item
   cy.get('.todo-list li').should('have.length', 1)
-  // and it should have text "learn testing"
   cy.contains('.todo-list li', 'learn testing')
 })
