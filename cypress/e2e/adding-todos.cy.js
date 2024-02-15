@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+// https://github.com/bahmutov/cypress-map
 import 'cypress-map'
 
 // before each test reset the data
