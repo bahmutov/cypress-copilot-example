@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
+import { TodoMVC } from './todomvc.page'
+
 // https://github.com/bahmutov/cypress-map
 import 'cypress-map'
 
 // before each test reset the data
-beforeEach(() => {
-  cy.request('POST', '/reset', { todos: [] })
-})
+beforeEach(TodoMVC.resetData)
 
 it('adds a new todo', () => {
   // visit the page
@@ -21,23 +21,18 @@ it('adds a new todo', () => {
   cy.contains('.todo-list li', 'learn testing')
 })
 
-function addTodo(text) {
-  cy.get('.new-todo').type(`${text}{enter}`)
-}
-
 it('adds four todos', () => {
-  cy.visit('/')
-  cy.get('body').should('have.class', 'loaded')
-  const todo_selector = '.todo-list li label'
+  TodoMVC.visit()
 
   // add four todos
-  addTodo('learn testing')
-  addTodo('be cool')
-  addTodo('be happy')
-  addTodo('be brave')
+  TodoMVC.addTodo('learn testing')
+  TodoMVC.addTodo('be cool')
+  TodoMVC.addTodo('be happy')
+  TodoMVC.addTodo('be brave')
 
   // there should be 4 todo items
-  cy.get(todo_selector)
+  cy.get(TodoMVC.todo_selector)
+    .find('label')
     .map('innerText')
     .should('deep.equal', [
       'learn testing',
