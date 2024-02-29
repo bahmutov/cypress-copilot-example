@@ -18,8 +18,8 @@
     "json-server-reset": "1.6.0"
   },
   "devDependencies": {
-    "cypress": "^13.6.3",
-    "cypress-map": "^1.30.0",
+    "cypress": "^13.6.6",
+    "cypress-map": "^1.33.0",
     "prettier": "^3.2.4",
     "start-server-and-test": "^2.0.3"
   }
