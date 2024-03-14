@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "title": "Buy groceries",
+    "titlez": "Buy groceries",
     "completed": false
   },
   {
     "id": 2,
-    "title": "Complete project report",
+    "titlez": "Complete project report",
     "completed": true
   },
   {
     "id": 3,
-    "title": "Book doctor's appointment",
+    "titlez": "Book doctor's appointment",
     "completed": false
   }
 ]
