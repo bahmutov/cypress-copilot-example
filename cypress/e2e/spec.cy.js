@@ -1,4 +1,6 @@
 describe('todomvc application', () => {
+  const N_ITEMS = 3
+
   it('loads the app', () => {
     cy.visit('/')
     // the should be loaded
@@ -11,5 +13,7 @@ describe('todomvc application', () => {
     cy.contains('h1', 'todos')
       // should have attribute "data-cy" set to "app-title"
       .should('have.attr', 'data-cy', 'app-title')
+    // there should be N items
+    cy.get('.todo li').should('have.length', N_ITEMS)
   })
 })
