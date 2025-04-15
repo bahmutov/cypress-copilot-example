@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import { TodoMVC } from './todomvc.page'
 
 // https://github.com/bahmutov/cypress-map

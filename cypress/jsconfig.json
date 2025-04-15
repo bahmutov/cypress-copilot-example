@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "lib": ["es2019", "dom"],
+    "types": ["cypress", "cypress-map"],
+    "allowJs": true,
+    "noEmit": true,
+  },
+  "include": ["**/*.*"],
+}

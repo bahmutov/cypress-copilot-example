@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Delete todo', () => {
   beforeEach(() => {
     // load the fixture three-todos.json
