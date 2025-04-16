@@ -1,5 +1,6 @@
 {
   "workbench.colorTheme": "SynthWave '84",
   "chat.agent.enabled": true,
-  "github.copilot.chat.codeGeneration.useInstructionFiles": true
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "chat.promptFiles": true
 }
