@@ -1,8 +1,10 @@
+import { addTodo } from './utils'
+
 describe('todomvc application', () => {
   it('adds a todo', () => {
     cy.visit('/')
     cy.get('.loaded')
-    cy.get('.new-todo').type('New Todo{enter}')
+    addTodo('New Todo')
     cy.get('.todo-list').should('contain', 'New Todo')
   })
 })
